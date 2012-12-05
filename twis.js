@@ -67,7 +67,12 @@ var m = Math,
 			lockDirection: true,
 			useTransform: true,
 			useTransition: false,
-
+			/**
+			Flags for enabling dsiable scroll directions
+			**/
+			leftOn:1,
+			rightOn:1,
+			upDownOn:1,
 			// Events
 			onRefresh: null,
 			onBeforeScrollStart: function (e) { e.preventDefault(); },
@@ -230,7 +235,7 @@ TWIS.prototype = {
 		if (newX > 0 || newX < that.maxScrollX) {
 			newX = that.options.bounce ? that.x + (deltaX / 2) : newX >= 0 || that.maxScrollX >= 0 ? 0 : that.maxScrollX;
 		}
-		if (newY > 0 || newY < that.maxScrollY) { 
+		if (newY > 0 || newY < that.maxScrollY) {
 			newY = that.options.bounce ? that.y + (deltaY / 2) : newY >= 0 || that.maxScrollY >= 0 ? 0 : that.maxScrollY;
 		}
 
@@ -255,7 +260,41 @@ TWIS.prototype = {
 		}
 
 		that.moved = true;
-		that._pos(newX, newY);
+		/**
+		Conditionals to lock x/y scrolling
+		**/
+		
+		//Create a string to simplify testing the boolean values for left/right/upDown
+		var vals=String(that.options.leftOn)+String(that.options.rightOn)+String(that.options.upDownOn);
+		console.log(vals);
+		/**
+		Conditionals, rule of thumb:
+		newX or newY means axis will move
+		that.x or that.y means axis doesn't move
+		**/
+		if(vals==='111'){
+			//Scroll XY
+			that._pos(newX, newY);
+		} else if(vals==='110'){
+			//Scroll X only
+			that._pos(newX, that.y);
+		} else if(vals==='001'){
+			//Scroll Y only
+			that._pos(that.x, newY);
+		}else if(vals==='011'&&that.x<newX){
+			//Scroll Y and right only
+			that._pos(newX, newY);
+		}else if(vals==='101'&&that.x>newX){
+			//Scroll Y and left only
+			that._pos(newX, newY);
+		}else if(vals==='010'&&that.x<newX){
+			//Scroll right only
+			that._pos(newX, that.y);
+		}else if(vals==='100'&&that.x>newX){
+			//Scroll left only
+			that._pos(newX, that.y);
+		}
+	
 		that.dirX = deltaX > 0 ? -1 : deltaX < 0 ? 1 : 0;
 		that.dirY = deltaY > 0 ? -1 : deltaY < 0 ? 1 : 0;
 
@@ -269,6 +308,7 @@ TWIS.prototype = {
 	},
 	
 	_end: function (e) {
+		//console.log(vals)
 		if (hasTouch && e.touches.length != 0) return;
 
 		var that = this,
@@ -648,7 +688,36 @@ TWIS.prototype = {
 		this.steps = [];
 		this.moved = false;
 		this.animating = false;
+	},
+	blockLeft: function () {
+		this.options.leftOn=0;
+	},
+	blockRight: function () {
+		this.options.rightOn=0;
+	},
+	blockLeftRight: function () {
+		this.options.leftOn=0;
+		this.options.rightOn=0;
+	},
+
+	blockUpDown: function () {
+		this.options.upDownOn=0;
+	},
+	unblockLeft: function () {
+		this.options.leftOn=1;
+	},
+	unblockRight: function () {
+		this.options.rightOn=1;
+	},
+	unblockLeftRight: function () {
+		this.options.leftOn=1;
+		this.options.rightOn=1;
+	},
+
+	unblockUpDown: function () {
+		this.options.upDownOn=1;
 	}
+
 };
 
 if (typeof exports !== 'undefined') exports.TWIS = TWIS;
