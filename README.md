@@ -14,8 +14,8 @@ function loaded() {
 	myScroll.nextPage(300);
 	myScroll.prevPage(300);
 }
--</pre>
-Adds new contruction parameetrs, set 0 or 1 to turn the axis on or off
+</pre>
+Added new contruction parameetrs, set 0 or 1 to turn the axis on or off
 
 -<pre>
 	myScroll = new TWIS('#wrapper',{
@@ -23,6 +23,6 @@ Adds new contruction parameetrs, set 0 or 1 to turn the axis on or off
 		leftOn:0,
 		rightOn:0
 	});
--</pre>
+</pre>
 
 
