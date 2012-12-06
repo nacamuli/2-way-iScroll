@@ -1,6 +1,6 @@
 Added new methods to lock or unlock scrolling on the X/Y axis
 Added methods to go to previous or next page
--<pre>
+<pre>
 function loaded() {
 	myScroll = new TWIS('#wrapper',{upDownOn:0});
 	myScroll.blockUpDown()
@@ -14,12 +14,12 @@ function loaded() {
 	myScroll.nextPage(300);
 	myScroll.prevPage(300);
 }
-</pre>
-Added new contruction parameetrs, set 0 or 1 to turn the axis on or off
 
--<pre>
+When you create a new instance of TWIS you can set the axis locking using these parameters and setting them to 1 or 0
+
+<pre>
 	myScroll = new TWIS('#wrapper',{
-		upDownOn:0,
+		upDownOn:1,
 		leftOn:0,
 		rightOn:0
 	});
