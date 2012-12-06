@@ -68,7 +68,8 @@ var m = Math,
 			useTransform: true,
 			useTransition: false,
 			/**
-			Flags for enabling dsiable scroll directions
+			Nacamuli
+			Flags for enabling dsiabling scroll directions
 			**/
 			leftOn:1,
 			rightOn:1,
@@ -261,6 +262,7 @@ TWIS.prototype = {
 
 		that.moved = true;
 		/**
+		Nacamuli
 		Conditionals to lock x/y scrolling
 		**/
 		
@@ -626,6 +628,25 @@ TWIS.prototype = {
 
 		this.scrollTo(-page*this.pageWidth, this.y, time);
 	},
+	/**
+	Nacamuli
+	Prev/Next page methods
+	**/
+	prevPage: function(time){
+		time = time || 0;
+		if(this.currentPage>0){
+			this.currentPage--;
+			this.scrollToPage(this.currentPage, time);
+		}
+	},
+
+	nextPage: function(time){
+		time = time || 0;
+		if(this.currentPage<this.pages.length-1){
+			this.currentPage++;
+			this.scrollToPage(this.currentPage, time);
+		}
+	},
 	
 	scrollY: function (pos, time) {
 		time = time || 0;
@@ -689,6 +710,11 @@ TWIS.prototype = {
 		this.moved = false;
 		this.animating = false;
 	},
+	
+	/**
+	Nacamuli
+	Scroll lock methods
+	**/
 	blockLeft: function () {
 		this.options.leftOn=0;
 	},

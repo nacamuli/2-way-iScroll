@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <title>2-way iScroll, Horizontal snap + Vertical scroll</title>
 
-<script type="text/javascript" src="myScroll.js"></script>
+<script type="text/javascript" src="twis.js"></script>
 <script type="text/javascript" src="buttons.js"></script>
 
 <link href="style.css" rel="stylesheet" type="text/css">
@@ -45,6 +45,8 @@ window.addEventListener('load', loaded, false);
 		<input type="checkbox" name="checkgroup" checked="true" onClick="if(this.checked){myScroll.unblockLeft()}else{myScroll.blockLeft()}">&larr; 
 		<input type="checkbox" name="checkgroup" checked="true" onClick="if(this.checked){myScroll.unblockRight()}else{myScroll.blockRight()}">&rarr; 
 		<input type="checkbox" name="checkgroup" checked="true" onClick="if(this.checked){myScroll.unblockUpDown()}else{myScroll.blockUpDown()}">&uarr;&darr; 
+		<a href="#" onClick="myScroll.prevPage(300)">Prev</a>
+		<a href="#" onClick="myScroll.nextPage(300)">Next</a>
 	</form>
 </header>
 
